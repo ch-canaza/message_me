@@ -5,12 +5,40 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <%= yield %>
+    <div class="ui small inverted menu">
+        <div class="ui container">
+          <a class="active item">
+            Home
+          </a>
+          <a class="item">
+            Messages
+          </a>
+        </a>
+        <div class="right menu">
+          <div class="menu">
+            <% if logged_in? %>
+              <%= link_to "Logout", logout_path, method: :delete, class: "item" %>
+            <% else %>
+              <%= link_to "Log in", login_path, class: "item" %>
+            <% end %>
+          </div>
+          <% if !logged_in? %>
+            <div class="item">
+              <%= link_to "Log in", login_path, class: "ui primary button" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <div class="ui container">
+      <%= render 'layouts/messages' %>
+      <%= yield %>
+    </div>
   </body>
 </html>
